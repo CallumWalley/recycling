@@ -24,7 +24,9 @@ public class TimeToAction : MonoBehaviour
     }
 
     private void Update() {
-        timerRect.transform.position = Camera.main.WorldToScreenPoint(new Vector3(transform.position.x, transform.position.y, 100));
+        if (timerRect != null && timerRect.activeInHierarchy){
+            timerRect.transform.position = Camera.main.WorldToScreenPoint(new Vector3(transform.position.x, transform.position.y, 100));
+        }
     }
     private void FixedUpdate()
     {
