@@ -56,20 +56,25 @@ public class Conveyor : MonoBehaviour
     {
         if (destinationStack != null)
         {
-            if (timeToAction.firing)
+            if (timeToAction.currentTime < 1)
             {
-                foreach (Transform child in pucsToMove)
+                foreach (Transform child in pucsToMove) 
                 {
                     child.parent = destinationStack;
                 }
             }
+            if (timeToAction.currentTime == 1)
+            {
+                // List of all obj in previous step.
+                pucsToMove.Clear();
+                foreach (Transform child in sourceStack.transform)
+                {
+                    pucsToMove.Add(child);
+                }
+                //pucsToMove.Reverse();//Reverse to preserve order
+            }
         }
-        // List of all obj in previous step.
-        pucsToMove.Clear();
-        foreach (Transform child in sourceStack.transform)
-        {
-            pucsToMove.Add(child);
-        }
+
         // Vector3Int tilePosition = tilemap.WorldToCell(dragGhost.transform.position);
         // //Tile.GetTileData(tilePosition, null, ref null);
         // //tile.GetTileData

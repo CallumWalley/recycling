@@ -8,14 +8,15 @@ public class RubbishGenerator : MonoBehaviour
 {
     public enum GeneratorType { Random };
     public GeneratorType generatorType;
+    public GameObject pucPrefab;
+    public Vector2Int generateRelativePosition;
+    public static Dictionary<GeneratorType, Generator> genDict;
+
     Generator _generator;
     BaseGrid baseGrid;
-    public GameObject pucPrefab;
     Vector2Int tilePosition;
     Transform generateStack;
-    public Vector2Int generateRelativePosition;
     TimeToAction timeToAction;
-    public static Dictionary<GeneratorType, Generator> genDict;
     RubbishGenerator(){
         genDict = new Dictionary<GeneratorType, Generator>(){
                 {GeneratorType.Random, new GeneratorRandom()}
@@ -37,7 +38,7 @@ public class RubbishGenerator : MonoBehaviour
         }
     }
     void FixedUpdate() {
-        if (timeToAction.firing){
+        if (timeToAction.currentTime == 0){
             // TODO: Check if movement allowed.
             _generator.Generate(Instantiate(pucPrefab, generateStack).GetComponent<RubbishBase>());
         }
